@@ -3,6 +3,8 @@ const pwd = require('./pwd')
 const ls = require('./ls')
 const cat = require('./cat')
 const curl = require('./curl')
+const echo = require('./echo')
+
 process.stdout.write('prompt > ');
 
 // The stdin 'data' even fires after a user types in a line
@@ -26,6 +28,8 @@ process.stdin.on('data', (data) => {
     cat(cmdArray, done);
   } else if(cmdArray[0] === 'curl'){
     curl(cmdArray[1], done)
+  } else if(cmdArray[0] === 'echo'){
+    echo(cmdArray, done)
   }
   else {
     done('You typed: ' + cmd);
