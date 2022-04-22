@@ -1,18 +1,24 @@
 // Output a prompt
 const pwd = require('./pwd')
 const ls = require('./ls')
+const cat = require('./cat')
 process.stdout.write('prompt > ');
 
 // The stdin 'data' even fires after a user types in a line
 process.stdin.on('data', (data) => {
   const cmd = data.toString().trim(); // remove the newLine
 
-  if(cmd === 'pwd'){
+  let cmdArray = cmd.split(' ');
+
+  if(cmdArray[0] === 'pwd'){
     pwd()
     process.stdout.write('\nprompt > ');
-  } else if(cmd === 'ls'){
+  } else if(cmdArray[0] === 'ls'){
     ls()
-  } else {
+  } else if(cmdArray[0] === 'cat'){
+    cat(cmdArray);
+  }
+  else {
     process.stdout.write('You typed: ' + cmd);
     process.stdout.write('\nprompt > ');
   }
