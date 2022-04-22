@@ -11,19 +11,24 @@ process.stdin.on('data', (data) => {
 
   let cmdArray = cmd.split(' ');
 
-  if(cmdArray[0] === 'pwd'){
-    pwd()
+  const done = (output) => {
+    // show the output
+    process.stdout.write(output);
+    // show the prompt
     process.stdout.write('\nprompt > ');
+  }
+
+  if(cmdArray[0] === 'pwd'){
+    pwd(done)
   } else if(cmdArray[0] === 'ls'){
-    ls()
+    ls(done)
   } else if(cmdArray[0] === 'cat'){
-    cat(cmdArray);
+    cat(cmdArray, done);
   } else if(cmdArray[0] === 'curl'){
-    curl(cmdArray[1])
+    curl(cmdArray[1], done)
   }
   else {
-    process.stdout.write('You typed: ' + cmd);
-    process.stdout.write('\nprompt > ');
+    done('You typed: ' + cmd);
   }
 
 });
